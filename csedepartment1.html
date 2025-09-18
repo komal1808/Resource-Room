@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGDTUW CSE - Year Selection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e2e2e2;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            height: 85vh;
+            background: rgba(18, 18, 30, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 0 35px rgba(126, 87, 194, 0.3);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(126, 87, 194, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #bb86fc;
+            text-shadow: 0 0 15px rgba(187, 134, 252, 0.5);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+            background: linear-gradient(45deg, #bb86fc, #03dac6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+            color: #cf9fff;
+        }
+        
+        .dept {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #03dac6;
+            margin-top: 10px;
+        }
+        
+        .years-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .year-box {
+            background: linear-gradient(135deg, #2c1370 0%, #4c23a1 100%);
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 22%;
+            height: 80%;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        .year-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff0080, #bb86fc, #03dac6, #cf9fff);
+            background-size: 400%;
+            border-radius: 22px;
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .year-box:hover::before {
+            opacity: 1;
+        }
+        
+        .year-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(126, 87, 194, 0.4);
+        }
+        
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        
+        .year-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            background: rgba(28, 28, 40, 0.7);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .year-logo i {
+            font-size: 3rem;
+            color: #bb86fc;
+            text-shadow: 0 0 10px rgba(187, 134, 252, 0.5);
+        }
+        
+        .year-name {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(187, 134, 252, 0.4);
+        }
+        
+        .year-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e2e2;
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            color: rgba(187, 134, 252, 0.3);
+            animation: floatIcon 15s linear infinite;
+            z-index: 0;
+        }
+        
+        .floating-icon:nth-child(1) {
+            top: 15%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        
+        .floating-icon:nth-child(2) {
+            top: 65%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+        
+        .floating-icon:nth-child(3) {
+            top: 40%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+        
+        .floating-icon:nth-child(4) {
+            top: 25%;
+            left: 70%;
+            animation-delay: 6s;
+        }
+        
+        .floating-icon:nth-child(5) {
+            top: 75%;
+            left: 60%;
+            animation-delay: 8s;
+        }
+        
+        @keyframes floatIcon {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translate(30px, 30px) rotate(180deg); opacity: 0.6; }
+            100% { transform: translate(0, 0) rotate(360deg); opacity: 0.3; }
+        }
+        
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #bb86fc;
+            border-top: 2px solid rgba(126, 87, 194, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px #bb86fc, 0 0 10px #bb86fc, 0 0 15px #bb86fc, 0 0 20px #cf9fff;
+        }
+        
+        @media (max-width: 1000px) {
+            .years-container {
+                gap: 20px;
+            }
+            
+            .year-box {
+                width: 23%;
+                padding: 20px 15px;
+            }
+            
+            .year-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .year-logo i {
+                font-size: 2.5rem;
+            }
+            
+            .year-name {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                overflow: auto;
+                height: auto;
+                padding: 20px 0;
+            }
+            
+            .container {
+                height: auto;
+                width: 95%;
+            }
+            
+            .years-container {
+                flex-wrap: wrap;
+            }
+            
+            .year-box {
+                width: 45%;
+                height: 250px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .dept {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .year-box {
+                width: 100%;
+                height: 220px;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h1>IGDTUW RESOURCE ROOM</h1>
+            <p class="tagline">By Students, For Students</p>
+            <p class="dept neon-text">Computer Science & Engineering</p>
+        </header>
+        
+        <div class="years-container">
+            <div class="year-box">
+                <div class="floating-icons">
+                    <div class="floating-icon"><i class="fas fa-heart"></i></div>
+                    <div class="floating-icon"><i class="fas fa-star"></i></div>
+                    <div class="floating-icon"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="floating-icon"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+                <div class="year-logo">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2 class="year-name">First Year</h2>
+                <p class="year-desc">Foundation courses in programming, mathematics, and computer fundamentals.</p>
+            </div>
+            
+            <div class="year-box">
+                <div class="floating-icons">
+                    <div class="floating-icon"><i class="fas fa-heart"></i></div>
+                    <div class="floating-icon"><i class="fas fa-star"></i></div>
+                    <div class="floating-icon"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="floating-icon"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+                <div class="year-logo">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h2 class="year-name">Second Year</h2>
+                <p class="year-desc">Core CS subjects including data structures, algorithms, and OOP.</p>
+            </div>
+            
+            <div class="year-box">
+                <div class="floating-icons">
+                    <div class="floating-icon"><i class="fas fa-heart"></i></div>
+                    <div class="floating-icon"><i class="fas fa-star"></i></div>
+                    <div class="floating-icon"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="floating-icon"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+                <div class="year-logo">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h2 class="year-name">Third Year</h2>
+                <p class="year-desc">Advanced topics like databases, OS, computer networks, and software engineering.</p>
+            </div>
+            
+            <div class="year-box">
+                <div class="floating-icons">
+                    <div class="floating-icon"><i class="fas fa-heart"></i></div>
+                    <div class="floating-icon"><i class="fas fa-star"></i></div>
+                    <div class="floating-icon"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="floating-icon"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+                <div class="year-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="year-name">Fourth Year</h2>
+                <p class="year-desc">Specializations, electives, and final year projects for your tech career!</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Indira Gandhi Delhi Technical University for Women • CSE Department
+        </div>
+    </div>
+
+    <script>
+        // Add hover effect to year boxes
+        document.querySelectorAll('.year-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.05)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Add subtle background animation
+        document.addEventListener('mousemove', function(e) {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+</html>

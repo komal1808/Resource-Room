@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The ResourceRoom - GEC Delhi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --autumn: #e67e22;
+            --autumn-light: #f39c12;
+            --autumn-dark: #d35400;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animation Container */
+        .animation-container {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5af19, #f12711);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .autumn-leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e67e22"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V7H9V5.5L3 7V9L5 9.5V15.5L3 16V18L5 18.5L7.5 18L10 18.5V20H14V18.5L16.5 18L19 18.5L21 18V16L19 15.5V9.5L21 9Z"/></svg>');
+            background-size: contain;
+            opacity: 0.7;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            z-index: 2;
+        }
+
+        .logo i {
+            font-size: 3.5rem;
+        }
+
+        .logo h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 800px;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .animated-scene {
+            width: 80%;
+            max-width: 900px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .scene-content {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .campus-building {
+            width: 200px;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 3L2 12H5V20H19V12H22L12 3ZM9 18H7V12H9V18ZM11 18V14H13V18H11ZM15 18H17V12H15V18Z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .students {
+            display: flex;
+            gap: 20px;
+        }
+
+        .student {
+            width: 60px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 4C13.1 4 14 4.9 14 6C14 7.1 13.1 8 12 8C10.9 8 10 7.1 10 6C10 4.9 10.9 4 12 4ZM15 9.08C15 7.83 13.93 6.81 12.63 6.66C12.26 6.62 11.92 6.81 11.68 7.09C11.21 7.64 10.54 8 9.75 8C8.78 8 8 7.22 8 6.25C8 5.78 8.19 5.36 8.5 5.03C8.69 4.82 8.72 4.53 8.62 4.27C8.24 3.31 8.73 2.2 9.69 1.82C10.65 1.44 11.76 1.93 12.14 2.89C12.24 3.15 12.49 3.33 12.78 3.33C13.33 3.33 13.78 2.88 13.78 2.33C13.78 1.78 13.33 1.33 12.78 1.33C12.65 1.33 12.53 1.35 12.41 1.39C10.87 1.92 9.92 3.53 10.45 5.07C10.98 6.61 12.59 7.56 14.13 7.03C15.67 6.5 16.62 4.89 16.09 3.35C15.96 2.95 15.75 2.59 15.48 2.28C16.01 2.11 16.57 2 17.15 2C19.21 2 20.88 3.67 20.88 5.73C20.88 7.79 19.21 9.46 17.15 9.46C16.14 9.46 15.22 9.06 14.54 8.4C14.03 8.87 13.36 9.08 12.63 9.08H15Z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: bounce 2s ease-in-out infinite alternate;
+        }
+
+        .student:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .student:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            z-index: 2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Content Section */
+        .content-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            font-size: 2.5rem;
+        }
+
+        .department-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .resource-icon {
+            background: var(--primary);
+            color: white;
+            font-size: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+        }
+
+        .resource-content h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .resource-content ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .resource-content li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .resource-content li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .resource-content a {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .resource-content a:hover {
+            background: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .animated-scene {
+                height: 200px;
+            }
+            
+            .campus-building {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .student {
+                width: 40px;
+                height: 70px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animation Container -->
+    <div class="animation-container" id="animation-container">
+        <!-- Animated leaves -->
+        <div class="autumn-leaf" style="left: 5%; animation-delay: 0s;"></div>
+        <div class="autumn-leaf" style="left: 15%; animation-delay: 2s;"></div>
+        <div class="autumn-leaf" style="left: 25%; animation-delay: 4s;"></div>
+        <div class="autumn-leaf" style="left: 35%; animation-delay: 6s;"></div>
+        <div class="autumn-leaf" style="left: 45%; animation-delay: 8s;"></div>
+        <div class="autumn-leaf" style="left: 55%; animation-delay: 1s;"></div>
+        <div class="autumn-leaf" style="left: 65%; animation-delay: 3s;"></div>
+        <div class="autumn-leaf" style="left: 75%; animation-delay: 5s;"></div>
+        <div class="autumn-leaf" style="left: 85%; animation-delay: 7s;"></div>
+        <div class="autumn-leaf" style="left: 95%; animation-delay: 9s;"></div>
+
+        <div class="logo">
+            <i class="fas fa-book-open"></i>
+            <h1>The ResourceRoom</h1>
+        </div>
+
+        <p class="tagline">Your gateway to all academic resources at GOVT ENGINEERING COLLEGE DELHI</p>
+
+        <div class="animated-scene">
+            <div class="scene-content">
+                <div class="campus-building"></div>
+                <div class="students">
+                    <div class="student"></div>
+                    <div class="student"></div>
+                    <div class="student"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i> Scroll to Explore Resources
+        </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content-section" id="content-section">
+        <h2 class="section-title">Department of Computer Science & Engineering</h2>
+        
+        <div class="department-header">
+            <h3>Welcome to CSE Resources</h3>
+            <p>Access all study materials, lab manuals, previous year papers, and more</p>
+        </div>
+
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Study Materials</h3>
+                    <ul>
+                        <li>Data Structures & Algorithms</li>
+                        <li>Database Management Systems</li>
+                        <li>Operating Systems</li>
+                        <li>Computer Networks</li>
+                        <li>Software Engineering</li>
+                    </ul>
+                    <a href="#">View All Materials</a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Lab Manuals & Programs</h3>
+                    <ul>
+                        <li>Java Programming</li>
+                        <li>Python Programming</li>
+                        <li>Web Development</li>
+                        <li>Android Development</li>
+                        <li>AI & Machine Learning</li>
+                    </ul>
+                    <a href="#">View Lab Resources</a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Previous Year Papers</h3>
+                    <ul>
+                        <li>End Semester Papers (2018-2023)</li>
+                        <li>Mid Semester Papers (2018-2023)</li>
+                        <li>Model Test Papers</li>
+                        <li>Subject-wise Question Banks</li>
+                        <li>Important Questions</li>
+                    </ul>
+                    <a href="#">View All Papers</a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Projects & Research</h3>
+                    <ul>
+                        <li>Final Year Projects</li>
+                        <li>Mini Projects</li>
+                        <li>Research Papers</li>
+                        <li>Project Guidelines</li>
+                        <li>IEEE Papers</li>
+                    </ul>
+                    <a href="#">View Projects</a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Reference Books</h3>
+                    <ul>
+                        <li>Textbooks (PDF)</li>
+                        <li>Reference Materials</li>
+                        <li>Faculty Recommendations</li>
+                        <li>Competitive Exam Books</li>
+                        <li>E-books & Publications</li>
+                    </ul>
+                    <a href="#">View Books</a>
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Career Development</h3>
+                    <ul>
+                        <li>Placement Preparation</li>
+                        <li>Internship Opportunities</li>
+                        <li>Resume Templates</li>
+                        <li>Coding Practice Platforms</li>
+                        <li>Interview Questions</li>
+                    </ul>
+                    <a href="#">View Career Resources</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>The ResourceRoom</h3>
+            <p>A centralized platform for all academic resources of GOVT ENGINEERING COLLEGE DELHI</p>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 The ResourceRoom | Created by 2nd Year CSE Student</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const animationContainer = document.getElementById('animation-container');
+            const contentSection = document.getElementById('content-section');
+            let scrolled = false;
+            
+            // Create more leaves for the animation
+            function createLeaves() {
+                for (let i = 0; i < 15; i++) {
+                    const leaf = document.createElement('div');
+                    leaf.classList.add('autumn-leaf');
+                    leaf.style.left = Math.random() * 100 + '%';
+                    leaf.style.animationDelay = Math.random() * 10 + 's';
+                    animationContainer.appendChild(leaf);
+                }
+            }
+            
+            createLeaves();
+            
+            // Handle scroll event
+            window.addEventListener('scroll', function() {
+                if (!scrolled && window.scrollY > 100) {
+                    contentSection.style.display = 'block';
+                    setTimeout(() => {
+                        contentSection.style.opacity = 1;
+                        contentSection.style.transform = 'translateY(0)';
+                    }, 100);
+                    scrolled = true;
+                }
+            });
+            
+            // Smooth scroll to content
+            document.querySelector('.scroll-down').addEventListener('click', function() {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initialize content section style
+            contentSection.style.opacity = 0;
+            contentSection.style.transform = 'translateY(20px)';
+            contentSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+    </script>
+</body>
+</html>
